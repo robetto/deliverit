@@ -4,14 +4,14 @@ import Colors from "@/constants/Colors";
 import { Product as ProductType } from "@/types";
 import { Link } from "expo-router";
 
-const defaultImage = "default.png";
+export const defaultPizzaImage = "default.png";
 
 const ProductListItem = ({ product }: { product: ProductType }) => {
     return (
         <Link href={`/menu/${product.id}`} asChild>
             <Pressable style={styles.container}>
                 <Image
-                    source={{ uri: product.image || defaultImage }}
+                    source={{ uri: product.image || defaultPizzaImage }}
                     style={{
                         width: 100,
                         height: 100,
