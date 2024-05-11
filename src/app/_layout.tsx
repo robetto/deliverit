@@ -5,12 +5,14 @@ import {
     ThemeProvider,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { Link, Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 
 import { useColorScheme } from "@/components/useColorScheme";
 import CartProvider from "@/provider/CartProvider";
+import { Pressable } from "react-native";
+import Colors from "@/constants/Colors";
 
 export {
     // Catch any errors thrown by the Layout component.
@@ -57,9 +59,33 @@ function RootLayoutNav() {
             <ThemeProvider
                 value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
             >
-                <Stack>
+                <Stack
+                    screenOptions={{
+                        headerRight: () => (
+                            <Link href="/login" asChild>
+                                <Pressable>
+                                    {({ pressed }) => (
+                                        <FontAwesome
+                                            name="lock"
+                                            size={25}
+                                            color={Colors.light.tint}
+                                            style={{
+                                                marginRight: 15,
+                                                opacity: pressed ? 0.5 : 1,
+                                            }}
+                                        />
+                                    )}
+                                </Pressable>
+                            </Link>
+                        ),
+                    }}
+                >
                     <Stack.Screen
                         name="(admin)"
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name="(auth)"
                         options={{ headerShown: false }}
                     />
                     <Stack.Screen
