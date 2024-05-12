@@ -13,6 +13,7 @@ import { useColorScheme } from "@/components/useColorScheme";
 import CartProvider from "@/provider/CartProvider";
 import { Pressable } from "react-native";
 import Colors from "@/constants/Colors";
+import AuthProvider from "@/provider/AuthProvider";
 
 export {
     // Catch any errors thrown by the Layout component.
@@ -55,49 +56,51 @@ function RootLayoutNav() {
     const colorScheme = useColorScheme();
 
     return (
-        <CartProvider>
-            <ThemeProvider
-                value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-            >
-                <Stack
-                    screenOptions={{
-                        headerRight: () => (
-                            <Link href="/login" asChild>
-                                <Pressable>
-                                    {({ pressed }) => (
-                                        <FontAwesome
-                                            name="lock"
-                                            size={25}
-                                            color={Colors.light.tint}
-                                            style={{
-                                                marginRight: 15,
-                                                opacity: pressed ? 0.5 : 1,
-                                            }}
-                                        />
-                                    )}
-                                </Pressable>
-                            </Link>
-                        ),
-                    }}
-                >
-                    <Stack.Screen
-                        name="(admin)"
-                        options={{ headerShown: false }}
-                    />
-                    <Stack.Screen
-                        name="(auth)"
-                        options={{ headerShown: false }}
-                    />
-                    <Stack.Screen
-                        name="(user)"
-                        options={{ headerShown: false }}
-                    />
-                    <Stack.Screen
-                        name="cart"
-                        options={{ presentation: "modal" }}
-                    />
-                </Stack>
-            </ThemeProvider>
-        </CartProvider>
+        <ThemeProvider
+            value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+        >
+            <AuthProvider>
+                <CartProvider>
+                    <Stack
+                        screenOptions={{
+                            headerRight: () => (
+                                <Link href="/login" asChild>
+                                    <Pressable>
+                                        {({ pressed }) => (
+                                            <FontAwesome
+                                                name="lock"
+                                                size={25}
+                                                color={Colors.light.tint}
+                                                style={{
+                                                    marginRight: 15,
+                                                    opacity: pressed ? 0.5 : 1,
+                                                }}
+                                            />
+                                        )}
+                                    </Pressable>
+                                </Link>
+                            ),
+                        }}
+                    >
+                        <Stack.Screen
+                            name="(admin)"
+                            options={{ headerShown: false }}
+                        />
+                        <Stack.Screen
+                            name="(auth)"
+                            options={{ headerShown: false }}
+                        />
+                        <Stack.Screen
+                            name="(user)"
+                            options={{ headerShown: false }}
+                        />
+                        <Stack.Screen
+                            name="cart"
+                            options={{ presentation: "modal" }}
+                        />
+                    </Stack>
+                </CartProvider>
+            </AuthProvider>
+        </ThemeProvider>
     );
 }
