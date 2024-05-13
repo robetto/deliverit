@@ -19,7 +19,7 @@ const LogInScreen = () => {
         
         error
             ? Alert.alert("login: ", `error login text: ${error}`)
-            : Alert.alert("niente login bro");
+            : Alert.alert("ottimo login bro");
 
         setLoading(false);
     }
