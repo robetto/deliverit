@@ -15,11 +15,13 @@ const LogInScreen = () => {
         const { error } = await supabase.auth.signInWithPassword({
             email,
             password,
-        }); 
-        
+        });
+
         error
             ? Alert.alert("login: ", `error login text: ${error}`)
             : Alert.alert("ottimo login bro");
+
+        // non dovrebbe esserci un redirect qui?
 
         setLoading(false);
     }
